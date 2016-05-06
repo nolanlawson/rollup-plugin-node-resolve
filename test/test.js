@@ -301,4 +301,25 @@ describe( 'rollup-plugin-node-resolve', function () {
 			]
 		}).then( executeBundle );
 	});
+
+	it( 'correctly resolves deep paths', () => {
+		var entries = [
+			'samples/deep-nesting/main.js',
+			'samples/deep-nesting/main2.js',
+			'samples/deep-nesting/main3.js',
+			'samples/deep-nesting/main4.js'
+		];
+		return Promise.all(entries.map(entry => {
+			return rollup.rollup({
+				entry: entry,
+				plugins: [
+					nodeResolve({
+						jsnext: true
+					})
+				]
+			}).then( executeBundle ).then( module => {
+				assert.equal( module.exports, 'bar' );
+			});
+		}));
+	});
 });

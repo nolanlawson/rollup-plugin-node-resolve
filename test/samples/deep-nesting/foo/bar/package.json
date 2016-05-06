@@ -1,0 +1,5 @@
+{
+  "name": "bar",
+  "main": "index.js",
+  "jsnext:main": "module.js"
+}
